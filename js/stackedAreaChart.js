@@ -10,6 +10,10 @@ StackedAreaChart = function (_parentElement, _data) {
 
 	this.parentElement = _parentElement;
 	this.data = _data;
+
+	// DEBUG RAW DATA
+	// console.log(this.data);
+
 	this.initVis();
 }
 
@@ -106,8 +110,13 @@ StackedAreaChart.prototype.initVis = function () {
 StackedAreaChart.prototype.updateVis = function () {
 	var vis = this;
 
-        // Update y domain
-        vis.y.domain([0, d3.max(vis.stackedData,(d) => {d3.max(d, (e) => e[1])})]);
+    // Update y domain
+        vis.y.domain([0, d3.max(vis.stackedData, function (d) {
+		return d3.max(d, function (e) {
+			return e[1];
+			});
+		})
+	]);
 
 	var dataCategories = colorScale.domain();
 
@@ -120,13 +129,23 @@ StackedAreaChart.prototype.updateVis = function () {
 	categories.enter().append("path")
 		.attr("class", "area")
 		.merge(categories)
-		.style("fill", (d, i) => return colorScale(dataCategories[i]))
-		.attr("d", (d) => return vis.area(d))
-		.each((d, i) => indices.set(this, i))
+		.style("fill", function (d, i) {
+		    return colorScale(dataCategories[i]);
+		})
+		.attr("d", function (d) {
+		    return vis.area(d);
+		})
+		.each(function(d, i) {
+			indices.set(this, i);
+		})
 	
-		// Update tooltip text, font size is 100
-		.on("mouseover", () => vis.tooltip.text(dataCategories[indices.get(this)], 100))
-		.on("mouseout", () => vis.tooltip.text(""));
+		// Update tooltip text
+		.on("mouseover", function () {
+			vis.tooltip.text(dataCategories[indices.get(this)], 100);
+		})
+		.on("mouseout", function () {
+			vis.tooltip.text("");
+		});
 
 	categories.exit().remove();
 
