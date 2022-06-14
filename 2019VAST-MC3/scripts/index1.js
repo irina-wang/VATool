@@ -185,7 +185,7 @@ function rscAreaChart(csvData, zoneData) {
   let yScale = d3.scaleLinear().range([height, 0]);
 
   let current;
-  // 时间段 取几个小时
+  // time window, set to 5
   let numHourAfter = 5;
   let slidingGroup;
   let slidingWindow;
@@ -267,9 +267,9 @@ function rscAreaChart(csvData, zoneData) {
       thisNearestHour,
       thisNearestHour + numHourAfter * hourToMilliSeconds
     );
-    // console.log(wsRawData,thisNearestHour,thisNearestHour + numHourAfter * hourToMilliSeconds);
+
     wsData = getWSdata(rangedData);
-    // 处理数据
+    // Process data
     timeWordData = getRangedWordData(
       wordData,
       thisNearestHour,
@@ -280,7 +280,6 @@ function rscAreaChart(csvData, zoneData) {
       thisNearestHour,
       thisNearestHour + numHourAfter * hourToMilliSeconds
     );
-    // 调用画词云的方法
     drawWordCloud();
     let streamRangedData = getRangedDataScratch(
       highestStack,
@@ -415,7 +414,7 @@ function rscAreaChart(csvData, zoneData) {
 
   function loadData() {
     Promise.all([d3.csv("data/YInt.csv"), d3.csv("data/YInt_LDA_1_0.csv")]).then(function (values) {
-      // 地图和折线图的数据
+      /* -- Map and Total Count Start -- */
       inputData = values[0];
       data = inputData.map((d) => {
         return {
@@ -433,7 +432,6 @@ function rscAreaChart(csvData, zoneData) {
       current = initTimestamp;
 
       drawGraph();
-      // drawPanel();
 
       let thisNearestHour = nearestHour(current);
       rangedData = getRangedData(
@@ -470,7 +468,8 @@ function rscAreaChart(csvData, zoneData) {
         .attr("width", slidingWidth(numHourAfter));
 
       drawResorceMap();
-      /*******地图和折线图结束**********/
+      /* -- Map and Total Count End -- */
+
       wordCsv = values[1];
       wordData = wordCsv.map((d) => {
         return {
@@ -489,7 +488,7 @@ function rscAreaChart(csvData, zoneData) {
         thisNearestHour,
         thisNearestHour + numHourAfter * hourToMilliSeconds
       );
-      // Draw word cloud
+      // Draw Wordcloud
       drawWordCloud();
      
     });
