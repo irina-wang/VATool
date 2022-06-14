@@ -483,13 +483,13 @@ function rscAreaChart(csvData, zoneData) {
           message: d.message,
         };
       });
-      // 处理数据
+      // Process data
       timeWordData = getRangedWordData(
         wordData,
         thisNearestHour,
         thisNearestHour + numHourAfter * hourToMilliSeconds
       );
-      // 调用画词云的方法
+      // Draw word cloud
       drawWordCloud();
      
     });
@@ -503,13 +503,13 @@ function rscAreaChart(csvData, zoneData) {
        }
       }
      var o = {
-       "M+" : date.getMonth()+1,                 //月份
-       "d+" : date.getDate(),                    //日
-       "h+" : date.getHours(),                   //小时
-       "m+" : date.getMinutes(),                 //分
-       "s+" : date.getSeconds(),                 //秒
-       "q+" : Math.floor((date.getMonth()+3)/3), //季度
-       "S"  : date.getMilliseconds()             //毫秒
+       "M+" : date.getMonth()+1,                 // Month
+       "d+" : date.getDate(),                    // Day
+       "h+" : date.getHours(),                   // Hou
+       "m+" : date.getMinutes(),                 // Minute
+       "s+" : date.getSeconds(),                 // Second
+       "q+" : Math.floor((date.getMonth()+3)/3), // Season
+       "S"  : date.getMilliseconds()             // mSecond
      };
    
      if(/(y+)/.test(fmt)){
@@ -530,11 +530,6 @@ function rscAreaChart(csvData, zoneData) {
 
       let svg = d3
         .select(main)
-        /*.append("div")
-        .style("width", width + margin.left + margin.right + "px")
-        .attr("id", "mainGraphContainer")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)*/
         .attr("height", height + margin.top + margin.bottom);
 
       let g = svg
@@ -581,7 +576,6 @@ function rscAreaChart(csvData, zoneData) {
       const yAxisGroup = g.append("g").attr("id", "yAxis");
       const yAxis = d3.axisLeft(yScale);
        let yAxisNodes = yAxisGroup.call(yAxis);
-      // styleAxis(yAxisNodes);
       const areaGen = d3
         .area()
         .x((d) => xScale(d.data.time))
@@ -704,8 +698,7 @@ function drawResorceMap() {
   });
   wsData.forEach((d) => {
     d.words.location.forEach((location) => {
-      str1 = location.text; //.replace(/ /g, "");
-      //str1 = str1.toLowerCase();
+      str1 = location.text; 
       let dat = colorMapData.find((z) => z.Name === str1);
 
       if (dat === undefined) {
@@ -741,18 +734,19 @@ function drawResorceMap() {
   };
 }
 
+/* Draw Word cloud */
 function drawWordCloud() {
-  const wordContainer = "#Wordclod";
+  const wordContainer = "#Wordcloud";
   const margin = {
       top: 30,
       right: 30,
       bottom: 30,
       left: 30
   },
-  width = $(wordContainer).width() - margin.left - margin.right,
+  width  = $(wordContainer).width() - margin.left - margin.right,
   height = $(wordContainer).height()- margin.top - margin.bottom;
-  // 控制圆的数量
-  var wordSum = 70;
+  
+  var wordSum = 70; // Control the total circles 
   let wordSvg = d3.select(wordContainer)
     .select('svg')
     .attr('width', width)
@@ -760,39 +754,39 @@ function drawWordCloud() {
     .select('g.wordG');
   wordSvg.html('')
   var format = d3.format(",d");
-  var sortData =  timeWordData.sort((a,b)=> b.value - a.value).filter((d,i)=> i < wordSum);
+
+  // Sort data
+  var sortData =  timeWordData.sort((a,b)=> b.value - a.value) // Decending
+                              .filter((d,i)=> i < wordSum);    // Keep 70 counts
+
+  // Scale the data - Map quantity to bubble radius
   var rScale = d3.scaleLinear()
-  .domain([sortData.length > 1 ? sortData[sortData.length-1].value: (sortData[0].value || 0),sortData[0].value])
-  .range([20, 100]); // 圆的半径最小和最大
+  .domain([sortData.length > 1 ? sortData[sortData.length-1].value: (sortData[0].value || 0),
+                                                                          sortData[0].value])
+  .range([20, 100]); // Min & Max bubble radius
+
+  // Create bubble charts with pack layout 
   var pack = d3.pack()
     .size([width - 2, height - 2])
-    .radius(function (d) {
-     return rScale(d.value)
-    })
+    .radius((d) => rScale(d.value))
     .padding(3);
-    var root = d3.hierarchy({
+
+  var root = d3.hierarchy({
       children: sortData
     })
-    .sum(function (d) {
-      return d.value;
-    })
-   
-    .sort(function (a, b) {
-      return b.value - a.value;
-    });
+    .sum((d) => d.value)
+    .sort((a, b) => b.value - a.value);
 
   pack(root);
 
+  // Add all elements to DOM
   var node = wordSvg.append("g")
     .selectAll("g")
     .data(root.children)
     .enter().append("g")
-    .attr("transform", function (d) {
-      return "translate(" + d.x + "," + d.y + ")";
-    })
+    .attr("transform", (d) => "translate(" + d.x + "," + d.y + ")")
     .attr("class", "node")
     .on('click',function(w){
-      // ${d.message.replace(eval(`/${w.data.id}/gi`), `<span style='color:red'>${w.data.id}</span>`)}
       let html = w.data.words.map((d)=>{
         return `<tr>
             <td class="column-time">
@@ -816,25 +810,15 @@ function drawWordCloud() {
       d3.select(".word-tip")
         .select('p')
         .html(w.data.id)
-        // .style("left", d3.event.pageX + 20 + "px")
-        // .style("top", d3.event.pageY - 15 + "px");
     });
 
   node.append("circle")
     .attr('fill','url(#filter1)')
-    // .attr('stroke','black')
-    // .attr('stroke-width',1)
-    .attr("id", function (d) {
-      return "node-" + d.data.id;
-    })
-    .attr("r", function (d) {
-      return d.r;
-    });
+    .attr("id", (d) => "node-" + d.data.id)
+    .attr("r", (d) => d.r);
 
   node.append("clipPath")
-    .attr("id", function (d) {
-      return "clip-" + d.data.id;
-    })
+    .attr("id", d => "clip-" + d.data.id)
     .append("use")
     .attr("xlink:href", function (d) {
       return "#node-" + d.data.id + "";
