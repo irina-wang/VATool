@@ -32,13 +32,6 @@ function rscAreaChart(csvData, zoneData) {
         "epicenter",
       ],
     },
-    // {
-    //   id: "rumble",
-    //   subTopic: true,
-    //   color: "blue",
-    //   parent: "events",
-    //   content: ["rumble"],
-    // },
     {
       id: "resources",
       subTopic: false,
@@ -185,8 +178,7 @@ function rscAreaChart(csvData, zoneData) {
   let yScale = d3.scaleLinear().range([height, 0]);
 
   let current;
-  // time window, set to 5
-  let numHourAfter = 5;
+  let numHourAfter = 5;   // time window, set to 5
   let slidingGroup;
   let slidingWindow;
   let slidingWidth = function (numHourAfter) {
