@@ -1,0 +1,309 @@
+:root {
+  --offset-color: #545b66;
+  --light-color: #f5f1f4;
+  --main-color: #17c0e6;
+  --radius: 1.5vmin;
+}
+
+html {
+  font-family: "Trebuchet MS", sans-serif;
+  background-color: var(--dark-color);
+}
+
+nav {
+  position: sticky;
+  top: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-image: url("../resources/bodyContent.png");
+  background-size: 100% 100%;
+}
+
+header h1 {
+  color: var(--light-color);
+  text-align: center;
+}
+
+footer {
+  border-top: 0.5vh solid var(--offset-color);
+
+  flex-shrink: 0;
+
+  width: 100%;
+  height: 1.5em;
+}
+
+footer h3 {
+  font-size: 1em;
+  color: var(--light-color);
+  text-align: center;
+}
+
+div.hover-tip {
+  position: absolute;
+  text-align: left;
+  padding: 0.5rem;
+  background: var(--light-color);
+  color: var(--dark-color);
+  border: 1px solid var(--offset-color);
+  border-radius: 8px;
+  pointer-events: none;
+  font-size: 1.3rem;
+}
+div.word-tip {
+  position: absolute;
+  text-align: left;
+  padding-top: 30px;
+  /* padding: 0.5rem; */
+  background: var(--light-color);
+  color: var(--dark-color);
+  border: 1px solid var(--offset-color);
+  border-radius: 8px;
+  font-size: 1.3rem;
+  right: 0px;
+  top: 50px;
+  width: 58vw;
+  height: 50vh;
+  padding-left: 2px; 
+  padding-right: 2px; 
+}
+.word-tip .tabel-con {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+.word-tip img{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 0px;
+  top: 0px;
+  cursor: pointer;
+}
+div.word-tip p{
+  width: 100%;
+  position: absolute;
+  height: 30px;
+  line-height: 30px;
+  top: 0px;
+  margin: 0px;
+  text-align: center;
+}
+div.word-tip table{
+  width: 100%;
+}
+
+table
+ 
+{
+
+    border-collapse: collapse;
+
+    margin: 0 auto;
+
+    text-align: center;
+
+}
+
+table td, table th
+
+{
+
+    border: 1px solid #cad9ea;
+    border-left: none;
+    color: #666;
+
+    height: 30px;
+    padding: 0px 4px;
+
+}
+
+table thead th
+
+{
+
+    background-color: #CCE8EB;
+
+    width: 100px;
+
+}
+
+table tr:nth-child(odd)
+
+{
+
+    background: #fff;
+
+}
+
+table tr:nth-child(even)
+
+{
+
+    background: #F5FAFA;
+
+}
+
+.hover-tip h4 {
+  margin-top: 0.33em;
+  margin-bottom: 0.33em;
+}
+
+div.tooltip-line {
+  position: absolute;
+  text-align: left;
+  padding: 8px;
+  margin-top: -20px;
+  background: #ffffff;
+  color: #313639;
+  border: 1px solid #313639;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.card {
+  box-shadow: 0px 0px 11px 0px #00DAFF inset;
+  border-radius: 5px;
+
+  border-image: linear-gradient(180deg,
+      rgba(110, 155, 250, 0),
+      rgba(174, 184, 255, 1),
+      rgba(70, 109, 255, 1)) 1 1;
+  padding: 0px 10px;
+}
+
+
+
+.sub-card,
+.card h2 {
+  margin-top: 0;
+  padding-left: 0.5vmin;
+  overflow: hidden;
+  border-bottom: 0.25vh solid var(--offset-color);
+  margin-bottom: 2px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.card h2 {
+  color: #fff;
+  text-align: center;
+}
+
+.card svg {
+  width: 100%;
+}
+
+.country-map {
+  stroke: black;
+}
+
+.bubble text {
+  cursor: default;
+  pointer-events: none;
+}
+
+.hilight {
+  /* stroke: cyan !important; */
+  stroke-width: 4px !important;
+}
+.tick text {
+  fill: #fff;
+}
+text {
+  fill: #fff;
+}
+.tick line {
+  stroke: #fff;
+}
+#yAxis path {
+  stroke: #fff;
+}
+.domain {
+  stroke: #fff;
+}
+
+.line {
+  fill: none;
+  stroke-width: 0.3vh;
+}
+
+.fade-line {
+  opacity: 0.25;
+}
+
+.focus-line {
+  stroke-width: 0.5vh !important;
+}
+
+.lda-topic-line circle {
+  stroke: var(--light-color);
+}
+
+.overlay {
+  fill: none;
+  stroke: none;
+  pointer-events: all;
+}
+
+
+#main {
+  display: flex;
+  flex-direction: row;
+
+
+  /* height: calc(100vh - 120px ); */
+}
+
+.left {
+  flex: 1;
+  /* display: flex;
+   flex-direction: column; */
+}
+
+.left .resources {
+  height: 200px;
+}
+
+.left .map {
+  flex: 1;
+  /* overflow: hidden; */
+  margin-top: 10px;
+}
+
+.right {
+  width: 60vw;
+  /* height: 100%; */
+}
+
+.left .card {
+  margin-right: 1vmin;
+}
+
+/* .right .card {
+  margin-left: 1vmin;
+} */
+
+.wordCard {
+  /* width: 100%; */
+  height: 100%;
+  position: relative;
+}
+
+
+#Wordclod text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+/* .node circle {
+  fill: #ddd;
+} */
+
+.node:hover circle {
+  stroke: #000;
+  stroke-width: 1.2px;
+}

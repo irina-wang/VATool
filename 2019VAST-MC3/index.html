@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>VAST Challenge 2019 MC 3</title>
+    <link rel="stylesheet" href="css/newStyle.css" />
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/index1.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Visual Analysis of Post-Earthquake Effects </h1>
+    </header>
+    <div id="main">
+      <div id="map-col" class="left">
+        <div id="resource-timeline" class="card tab-content resources">
+          <h2>Message Timeline</h2>
+          <svg>
+            <defs>
+
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+          
+                <stop offset="0%" style="stop-color:rgb(0,208,199);stop-opacity:1"></stop>
+          
+                <stop offset="100%" style="stop-color:rgb(0,208,199);stop-opacity:0"></stop>
+          
+              </linearGradient>
+          
+            </defs>
+          </svg>
+        </div>
+        <div id="map-card" class="card map">
+          <h2>Map of St.Himark</h2>
+         
+        </div>
+      </div>
+      <div class="right">
+        <div id="Wordclod" class="card wordCard">
+          <div class="word-tip" style="display: none">
+            <p></p>
+            <img src="./resources/close.svg" alt="" id="closeTable">
+            <div class="tabel-con">
+              <table class="tableTooltip" id="tableTooltip">
+                <thead>
+                    <tr>
+                        <th class="column-time">
+                            Time
+                        </th>
+                        <th class="column-location">
+                            Location
+                        </th>
+                        <th class="column-account">
+                            Account
+                        </th>
+                        <th class="column-message">
+                            Message
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td style="color: rgb(0, 0, 0);">
+                            April 07, 3:40 PM
+                        </td>
+                        <td style="color: rgb(0, 0, 0);">
+                            Cheddarford
+                        </td>
+                        <td style="color: rgb(0, 0, 0);">
+                            CantonCoordon2
+                        </td>
+                        <td style="color: rgb(0, 0, 0);">
+                            Time to change your day! Only Six days left to take advantage of this thrilling, <span class="highlightTextDetail" style="color: #d62728;">shaking</span> event!
+                        </td>
+                    </tr> -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h2>Word Cloud</h2>
+          <svg>
+            <defs>
+              <radialGradient id="filter1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgba(45, 193, 178, 0.5);stop-opacity:0.2" />
+                <stop offset="100%" style="stop-color:rgba(74, 231, 202, 1);stop-opacity:0.8" />
+              </radialGradient>
+            </defs>
+            <g class="wordG">
+
+            </g>
+          </svg>
+        </div>
+      </div>
+      <!-- <div id="tab-col" class="right">
+        
+      </div> -->
+      <!-- <div id="tab-col" class="right">
+        <div class="tab-content resources">
+          <div id="select-controls" class="card">
+            <h2>Controls to select which resource to show</h2>
+            <ul></ul>
+            <svg></svg>
+          </div>
+          <div id="pie-chart" class="card">
+            <h2>LDA Resource Distribution</h2>
+            <svg></svg>
+          </div>
+          <div id="line-chart1" class="card">
+            <h2>LDA Resource Analysis</h2>
+            <svg></svg>
+          </div>
+        </div>
+        <div class="tab-content sentiment">
+          <div id="flow-diagram" class="card">
+            <h2>Flow diagram</h2>
+            <svg></svg>
+          </div>
+          <div id="sentiment-bubbles" class="card">
+            <h2>Messages by Neighborhood</h2>
+            <svg></svg>
+          </div>
+        </div>
+        <div class="tab-content communications">
+          <div id="user-interaction-network" class="card">
+            <h2>User Interaction Network</h2>
+            <svg></svg>
+          </div>
+          <div id="select-controls" class="card">
+            <h2>Controls, filters, etc.</h2>
+          </div>
+          <div id="retweets-layout" class="card">
+            <h2>Top Retweets</h2>
+            <svg></svg>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="hover-tip" style="display: none">
+      <h4></h4>
+      <t></t>
+      <svg id="minibar" style="display: none"></svg>
+    </div>
+    
+  </body>
+</html>
